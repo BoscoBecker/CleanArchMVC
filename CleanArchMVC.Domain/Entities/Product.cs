@@ -1,4 +1,5 @@
 ﻿using CleanArchMVC.Domain.Validation;
+
 namespace CleanArchMVC.Domain.Entities
 {
     public sealed class Product : Entity

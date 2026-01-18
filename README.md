@@ -1,5 +1,3 @@
-# README.md
-
 # CleanArchMVC
 
 Este projeto é uma aplicação Razor Pages baseada nos princípios de Clean Architecture, desenvolvida em .NET 9 e C# 13.0. O objetivo é fornecer uma estrutura robusta, escalável e de fácil manutenção para sistemas web, separando claramente as responsabilidades entre as camadas de domínio, aplicação, infraestrutura e apresentação.
