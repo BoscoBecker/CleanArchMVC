@@ -84,6 +84,11 @@ Abra o navegador e acesse `https://localhost:5001` ou `http://localhost:5000`.
 4. Push para a branch (`git push origin feature/NovaFuncionalidade`)
 5. Abra um Pull Request
 
+
+7. Aplicando migções de banco de dados:
+` add-migration inicial -Project CleanArchMVC.Infra.Data -StartupProject CleanArchMVC.WebUI 
+`
+
 ## Licença
 
 Este projeto está licenciado sob a licença MIT.
