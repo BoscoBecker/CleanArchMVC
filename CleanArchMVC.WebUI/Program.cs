@@ -6,7 +6,7 @@ internal class Program {
         var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllersWithViews();
             builder.Services.AddInfrastructure(builder.Configuration);
-
+            builder.Services.AddAutoMapper(typeof(Program));
         var app = builder.Build();
         if (!app.Environment.IsDevelopment())
         {
