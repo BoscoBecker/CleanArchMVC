@@ -1,5 +1,4 @@
-﻿using CleanArchMVC.Application.Interfaces;
-using CleanArchMVC.Application.Products.Commands;
+﻿using CleanArchMVC.Application.Products.Commands;
 using CleanArchMVC.Domain.Entities;
 using CleanArchMVC.Domain.Interfaces;
 using MediatR;
@@ -12,10 +11,9 @@ namespace CleanArchMVC.Application.Products.Handlers
 
         public async Task<Product> Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
         {
-                product.Update(request.Name, request.Description, request.Price, request.Stock, request.Image, request.CategoryId);
-                return await _productRepository.UpdateAsync(product);
-
-            }
+            var product = await _productRepository.GetByIdAsync(request.Id);
+            product.Update(request.Name, request.Description, request.Price, request.Stock, request.Image, request.CategoryId);
+            return await _productRepository.UpdateAsync(product);
         }
     }
 }

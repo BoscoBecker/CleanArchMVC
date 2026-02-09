@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchMVC.Application.DTOs;
-using CleanArchMVC.Application.Interfaces;
 using CleanArchMVC.Domain.Entities;
-using CleanArchMVC.Domain.Interfaces;
 
 namespace CleanArchMVC.Application.Services
 {
@@ -25,7 +23,7 @@ namespace CleanArchMVC.Application.Services
 
         public async Task<IEnumerable<ProductDTO>> GetProductsAsync()
         {
-            var productsEntity = await _productRepository.GetProductsAsync();   
+            var productsEntity = await _productRepository.GetProductsAsync();
             return _mapper.Map<IEnumerable<ProductDTO>>(productsEntity);
         }
 

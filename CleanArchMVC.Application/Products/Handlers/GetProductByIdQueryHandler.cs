@@ -8,9 +8,6 @@ namespace CleanArchMVC.Application.Products.Handlers
     public class GetProductByIdQueryHandler(IProductRepository productRepository) : IRequestHandler<GetProductByIdQuery, Product>
     {
         private readonly IProductRepository _productRepository = productRepository;
-        public async Task<Product> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
-        {
-            return await _productRepository.GetByIdAsync(request.Id);            
-        }
+        public async Task<Product> Handle(GetProductByIdQuery request, CancellationToken cancellationToken) => await _productRepository.GetByIdAsync(request.Id);                    
     }
 }
