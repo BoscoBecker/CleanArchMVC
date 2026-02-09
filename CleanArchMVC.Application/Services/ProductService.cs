@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using CleanArchMVC.Application.DTOs;
+using CleanArchMVC.Application.Interfaces;
 using CleanArchMVC.Domain.Entities;
+using CleanArchMVC.Domain.Interfaces;
 
 namespace CleanArchMVC.Application.Services
 {
-    public class ProductService(Domain.Interfaces.IProductRepository productRepository, IMapper mapper) : Interfaces.IProductServices
+    public class ProductService(IProductRepository productRepository, IMapper mapper) : IProductServices
     {
-        private readonly Domain.Interfaces.IProductRepository _productRepository = productRepository;
+        private readonly IProductRepository _productRepository = productRepository;
         private readonly IMapper _mapper = mapper;
 
         public async Task AddAsync(ProductDTO productDto)
@@ -34,8 +36,7 @@ namespace CleanArchMVC.Application.Services
         }
 
         public async Task UpdateAsync(ProductDTO productDto)
-        {
-            var productsEntity = await _productRepository.GetProductsAsync();
+        {            
             var productEntity = _mapper.Map<Product>(productDto);
             await _productRepository.UpdateAsync(productEntity);
         }
