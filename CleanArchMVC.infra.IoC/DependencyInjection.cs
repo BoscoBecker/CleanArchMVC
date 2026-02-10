@@ -17,14 +17,21 @@ namespace CleanArchMVC.infra.IoC
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite(configuration.GetConnectionString("DefaultConnection"), 
+            options.UseSqlite(configuration.GetConnectionString("DefaultConnection"),
             b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<Domain.Interfaces.IProductRepository, ProductRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryServices, CategoryService>();
-            services.AddScoped<Application.Interfaces.IProductServices, ProductService>();
+            services.AddScoped<IProductServices, ProductService>();
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
+            
+            //services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ProductService).Assembly));
+            //services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CategoryService).Assembly));
+
+            var myHandlers = AppDomain.CurrentDomain.Load("CleanArchMVC.Application");
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(myHandlers));
+
 
             return services;
         }
