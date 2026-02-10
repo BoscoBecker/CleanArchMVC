@@ -19,21 +19,11 @@ namespace CleanArchMVC.Infra.Data.Repositories
 
         public async Task<Product> GetByIdAsync(int id)
         {
-           return await _context.Products.FindAsync(id);
-        }
+            var product = _context.Products.AsNoTracking()
+                                           .Include(p => p.Category)
+                                           .SingleOrDefaultAsync(c => c.Id == id);
+            return  product == null ? throw new ApplicationException("Entity could not be loaded.") : await product;
 
-        public async Task<Product> GetProductCategoryByIdAsync(int? id)
-        {
-            var Product =  await _context.Products.AsNoTracking()
-                                          .Include( p => p.Category) 
-                                          .SingleOrDefaultAsync(c => c.Id == id);
-
-            return Product;
-        }
-
-        public Task<Product> GetProductCategoryByIdAsync(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
