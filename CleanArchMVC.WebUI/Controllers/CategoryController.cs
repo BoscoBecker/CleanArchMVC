@@ -1,4 +1,5 @@
-﻿using CleanArchMVC.Application.DTOs;
+﻿using AspNetCoreGeneratedDocument;
+using CleanArchMVC.Application.DTOs;
 using CleanArchMVC.Application.Interfaces;
 using CleanArchMVC.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -62,15 +63,27 @@ namespace CleanArchMVC.WebUI.Controllers
         }
 
 
-        [HttpPost("{id}")]
+        [HttpGet()]
         public async Task<IActionResult> Delete(int id)
         {
-            if (ModelState.IsValid)
+            if (id <= 0) return NotFound();
+            var categoryDTO = await _categoryServices.GetByIdAsync(id);
+            if (categoryDTO == null) return NotFound();
+            return View(categoryDTO);
+        }
+
+        [HttpPost()]
+        public async Task<IActionResult> DeleteConfirmation(int id)
+        {   
+            try
             {
                 await _categoryServices.RemoveAsync(id);
-                return RedirectToAction(nameof(Index));
             }
-            return View();
+            catch (Exception)
+            {
+                throw;
+            }
+            return RedirectToAction(nameof(Index));            
         }
     }
 }
