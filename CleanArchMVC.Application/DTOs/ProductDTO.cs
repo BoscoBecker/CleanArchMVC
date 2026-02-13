@@ -32,7 +32,7 @@ namespace CleanArchMVC.Application.DTOs
 
         [MaxLength(250)]
         [DisplayName("Image URL")]
-        public string ImageUrl { get; set; } = string.Empty;
+        public string Image { get; set; } = string.Empty;
         
         [Required(ErrorMessage = "The {0} is required")]
         [Range(1,9999)]

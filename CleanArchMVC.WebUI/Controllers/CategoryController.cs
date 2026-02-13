@@ -22,17 +22,6 @@ namespace CleanArchMVC.WebUI.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(CategoryDTO categoryDto)
-        {
-            if (ModelState.IsValid)
-            {
-                await _categoryServices.AddAsync(categoryDto);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(categoryDto);
-        }
-
         [HttpGet()]
         public async Task<IActionResult> Edit(int id)
         {
@@ -42,6 +31,34 @@ namespace CleanArchMVC.WebUI.Controllers
             
             if (category == null) return NotFound();            
             return View(category);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id <= 0) return NotFound();
+            var categoryDTO = await _categoryServices.GetByIdAsync(id);
+            if (categoryDTO == null) return NotFound();
+            return View(categoryDTO);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id <= 0) return NotFound();
+            var categoryDTO = await _categoryServices.GetByIdAsync(id);
+            if (categoryDTO == null) return NotFound();
+            return View(categoryDTO);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CategoryDTO categoryDto)
+        {
+            if (ModelState.IsValid)
+            {
+                await _categoryServices.AddAsync(categoryDto);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(categoryDto);
         }
 
         [HttpPost()]
@@ -60,16 +77,6 @@ namespace CleanArchMVC.WebUI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(categoryDto);
-        }
-
-
-        [HttpGet()]
-        public async Task<IActionResult> Delete(int id)
-        {
-            if (id <= 0) return NotFound();
-            var categoryDTO = await _categoryServices.GetByIdAsync(id);
-            if (categoryDTO == null) return NotFound();
-            return View(categoryDTO);
         }
 
         [HttpPost()]
